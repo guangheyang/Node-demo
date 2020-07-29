@@ -41,9 +41,26 @@ web层：`LoginController`（接收参数，判断是否非法，传给服务层
 （2）`Js`规范缺乏管理机制（`npm`中央仓库）
 
 引入模块
-require("http") // 系统内置模块
+require("http")       // 系统内置模块
 require("./test.js") // 自定义模块
 
 导出模块export
-module.exports与exports的区别？
+
+###### module.exports与exports的区别？
+
+`module.exports`与`export`指向同一个对象，当像`module.exports = a`或`exports = b` 这样赋值时，存储地址改变，结论导出的永远是对象`module.exports`
+
+
+
+NodeJs的模块是运行在一个函数当中
+
+
+
+# Node API
+
+|                          Socket                          |                            Server                            |
+| :------------------------------------------------------: | :----------------------------------------------------------: |
+|     事件：connect、data、end、timeout、error、close      | 事件：listening、connection、close(关闭时触发)、error（报错时触发） |
+| 属性：remoteAddredd、remotePort、localAddress、localPort |                 属性：listen、close、address                 |
+|        方法：setTimeout、write、setEncoding、end         |                                                              |
 
