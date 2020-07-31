@@ -1,4 +1,4 @@
-const net = require('net');
+const net = require('net'); //网络层和运输层 TCP/IP协议
 const fs = require('fs');
 
 const globalConfig = require('./config.js');
