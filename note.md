@@ -64,3 +64,20 @@ NodeJs的模块是运行在一个函数当中
 | 属性：remoteAddredd、remotePort、localAddress、localPort |                 属性：listen、close、address                 |
 |        方法：setTimeout、write、setEncoding、end         |                                                              |
 
+# 使用浏览器访问服务
+
+返回的data为http请求头
+
+```
+GET /url HTTP/1.1  // 请求类型 url http协议 版本号
+Host: 127.0.0.1:12306 //请求ip与端口
+Connection: keep-alive  // 保持连接
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br  // 接收的编码
+Accept-Language: zh-CN,zh;q=0.9 // 接收的语言
+```
+
+连接成功后响应要使用http响应头，响应头与响应体之间为两个换行
+
