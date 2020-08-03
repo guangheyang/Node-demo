@@ -5,10 +5,13 @@ const fs = require('fs');
 const globalConfig = require('./config');
 const loader = require('./loader');
 
+const log = require('./log');
+
 http.createServer(function(request, response) {
     const pathName = url.parse(request.url).pathname;
     // 传入true将query处理成对象
     const params = url.parse(request.url, true).query;
+    log(pathName);
     const isStatic = isStaticRequest(pathName);
     if (isStatic) {
         // 请求静态文件
@@ -40,7 +43,8 @@ http.createServer(function(request, response) {
         }
     }
 }).listen(globalConfig['port']);
-
+console.log('服务已启动');
+log('服务已启动');
 function isStaticRequest(pathName) {
     for (let i = 0; i < globalConfig['static_file_type'].length; i++) {
         const temp = globalConfig['static_file_type'][i];
