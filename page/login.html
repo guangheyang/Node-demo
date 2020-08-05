@@ -16,8 +16,8 @@
             const params = 'sNo='+ sNo + '&password=' + password;
             console.log(params,'params')
             xmlHttp = new XMLHttpRequest();
-            xmlHttp.open('GET', '/login?' + params, true);
-            xmlHttp.send(null);
+            xmlHttp.open('POST', '/login', true);
+            xmlHttp.send(params);
 
             xmlHttp.onreadystatechange = function () {
                 if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
