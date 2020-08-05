@@ -1,15 +1,24 @@
+const studentService = require('../service/studentServer');
+const url = require('url');
+
 const path = new Map();
-function getData(request, response) {
-    const random = Math.random();
-    if (random > 0.5) {
-        response.writeHead(200);
-        response.write('success');
+function login(request, response) {
+    const params = url.parse(request.url, true).query;
+    studentService.queryStudentBySNo(params.sNo,function(result) {
+        let res = '';
+        if (result === null || !result.length) {
+
+        } else {
+            if (result[0].pwd === params.password) {
+                res = 'ok';
+            } else {
+                res = 'fail'
+            }
+        }
+        response.write(res);
         response.end();
-    } else {
-        throw new Error('一个来自程序运行中的错误');
-    }
-
+    });
 }
-path.set('/getData', getData);
-
+path.set('/login', login);
+console.log(path, 'path');
 module.exports.path = path;
