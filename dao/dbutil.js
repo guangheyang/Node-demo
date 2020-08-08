@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 
-function createConntction() {
+function createConnection() {
     const connection = mysql.createConnection({
         host: '127.0.0.1',
         port: '3306',
@@ -8,7 +8,7 @@ function createConntction() {
         password: '123456',
         database: 'shcool'
     });
-    return connection
+    return connection;
 }
 
-module.exports.createConntction = createConntction;
+module.exports.createConnection = createConnection;
