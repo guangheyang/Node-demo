@@ -15,6 +15,23 @@ function queryAllStudent(success) {
     })
 }
 
+function insetStudent(sNo, name, age, pwd, success) {
+    const connection = dbutil.createConnection();
+    const insertSql = 'insert into school(sNo, name, age, pwd) values(?, ?, ?, ?)';
+    const params = [sNo, name, age, pwd];
+    connection.connect();
+    connection.query(insertSql, params, function(error, result) {
+        if(!error) {
+            console.log(result);
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+        connection.end();
+    })
+}
+
 module.exports = {
-    queryAllStudent
+    queryAllStudent,
+    insetStudent
 }
