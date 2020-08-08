@@ -31,7 +31,23 @@ function insetStudent(sNo, name, age, pwd, success) {
     })
 }
 
+function queryStudentBySNo(sNo, success) {
+    const connection = dbutil.createConnection();
+    const querySql = 'select * from school where sNo = ?;';
+    const params = [sNo];
+    connection.connect();
+    connection.query(querySql, params, function(error, result) {
+        if(!error) {
+            console.log(result);
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+        connection.end();
+    })
+}
 module.exports = {
     queryAllStudent,
-    insetStudent
+    insetStudent,
+    queryStudentBySNo
 }
