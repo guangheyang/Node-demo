@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #409EFF;
+            background-color: #b3d8ff;
+            padding:5px 10px;
+            border: 1px solid #409EFF;
+            transition: all 0.3s;
+            border-radius: 8px;
+            text-align: center;
+            line-height: 20px;
+            height: 20px;
+        }
+        a:hover {
+            color: #fff;
+            background-color:#409EFF;
+            transition: all 0.3s;
+        }
+        img {
+            width: 200px;
+            border: 1px solid #c0c0c0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="name" placeholder="请输入名字">
+    <input type="file" id="file">
+    <button onclick="submitFile()">提交</button>
+    <a href="#" id="download" download="pic.png">点击此处下载</a>
+    <br>
+
+    <!-- 返回图片的本质：返回了图片的二进制数据流-->
+<!-- express自动返回图片是express框架读取了图片文件将文件的二进制流进行了返回-->
+    <img src="#" id="pic">
+
+    <script>
+        function submitFile() {
+            const file = document.getElementById('file').files[0];
+            const name = document.getElementById('name').value;
+
+            const form = new FormData();
+            form.append('myfile', file);
+            form.append('name', name);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('post', '/upload', true);
+            xhr.onload = function () {
+                alert('上传成功');
+            };
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState == 4 && xhr.status == 200) {
+                    const result = xhr.responseText;
+                    console.log(result);
+                    const pic= document.getElementById('pic');
+                    const dw = document.getElementById('download');
+                    pic.src = '/getPic?path=' + JSON.parse(result).path;
+                    dw.href = '/getPic?path=' + JSON.parse(result).path;
+                    dw.download = JSON.parse(result).originalname;
+                }
+            };
+            xhr.send(form);
+        }
+    </script>
+</body>
+</html>
